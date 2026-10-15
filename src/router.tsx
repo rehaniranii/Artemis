@@ -1,0 +1,16 @@
+import { lazy } from 'react';
+import type { RouteObject } from 'react-router-dom';
+import { AppShell } from '@/components/layout/AppShell';
+const Landing=lazy(()=>import('@/pages/LandingPage'));
+const Home=lazy(()=>import('@/pages/HomePage'));
+const Explore=lazy(()=>import('@/pages/ExplorePage'));
+const Plan=lazy(()=>import('@/pages/PlanPage'));
+const RealityLab=lazy(()=>import('@/pages/RealityLabPage'));
+const Onboarding=lazy(()=>import('@/pages/OnboardingPage'));
+const Blueprint=lazy(()=>import('@/pages/BlueprintPage'));
+const FundDetail=lazy(()=>import('@/pages/FundDetailPage'));
+const Match=lazy(()=>import('@/pages/MonoMatchPage'));
+const Simulator=lazy(()=>import('@/pages/SimulatorPage'));
+const DesignSystem=lazy(()=>import('@/pages/DesignSystemPage'));
+const NotFound=lazy(()=>import('@/pages/NotFoundPage'));
+export const appRoutes: RouteObject[]=[{element:<AppShell/>,children:[{path:'/',element:<Landing/>},{path:'/home',element:<Home/>},{path:'/explore',element:<Explore/>},{path:'/explore/funds/:fundId',element:<FundDetail/>},{path:'/plan',element:<Plan/>},{path:'/reality-lab',element:<RealityLab/>},{path:'/onboarding',element:<Onboarding/>},{path:'/blueprint',element:<Blueprint/>},{path:'/mono-match',element:<Match/>},{path:'/simulator',element:<Simulator/>},{path:'/design-system',element:<DesignSystem/>},{path:'*',element:<NotFound/>}]}];

@@ -1,0 +1,2 @@
+import { Info } from 'lucide-react';
+export function Disclaimer({compact=false}:{compact?:boolean}){return <p className="flex items-start gap-2 text-[11px] leading-relaxed text-muted-foreground"><Info size={13} className="mt-0.5 shrink-0"/><span>{compact?'Educational prototype. No real investments or transactions.':'MONO is an educational prototype, not personalized investment advice. Examples and projections are illustrative; returns are not guaranteed. No accounts, transactions or live market data are connected.'}</span></p>;}

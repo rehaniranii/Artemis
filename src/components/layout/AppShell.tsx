@@ -1,0 +1,9 @@
+import { Suspense, useEffect, useSyncExternalStore } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { motion } from 'motion/react';
+import { Navbar } from './Navbar';
+import { LoadingState } from '@/components/shared/LoadingState';
+import { Disclaimer } from '@/components/shared/Disclaimer';
+import { useAppMotion } from '@/hooks/useAppMotion';
+import { storageStatus } from '@/lib/storage';
+export function AppShell(){const {pathname}=useLocation();const {reduceMotion}=useAppMotion();const warning=useSyncExternalStore(storageStatus.subscribe,storageStatus.getSnapshot,()=>null);useEffect(()=>{document.documentElement.dataset.reducedMotion=String(reduceMotion);},[reduceMotion]);useEffect(()=>{window.scrollTo({top:0,behavior:'instant'});},[pathname]);return <><a href="#main-content" className="fixed left-4 top-4 z-50 -translate-y-32 rounded-full bg-foreground px-5 py-3 text-sm text-background focus:translate-y-0">Skip to content</a><Navbar/>{warning&&<p role="status" className="page-width py-3 text-xs text-destructive">{warning}</p>}<main id="main-content" className="route-content" tabIndex={-1}><Suspense fallback={<LoadingState/>}><motion.div key={pathname} initial={reduceMotion?false:{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{duration:.3}}><div className={pathname==='/'?'':'page-width py-12 md:py-16'}><Outlet/></div></motion.div></Suspense></main><footer className="page-width mt-16 border-t py-7"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><div className="max-w-xl"><Disclaimer compact/></div><div className="flex items-center gap-5 text-[10px] text-muted-foreground"><span>MONO · Foundation preview</span><Link to="/design-system" className="underline underline-offset-4">Component library</Link></div></div></footer></>;}

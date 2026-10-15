@@ -1,0 +1,2 @@
+import type { ModuleConfig } from '@/components/shared/ModulePlaceholder';
+export const moduleConfig:ModuleConfig = {"eyebrow": "FINANCIAL BLUEPRINT", "title": "Your money, on one page.", "description": "Your future blueprint will bring the reasons behind your choices together, without burying you in numbers.", "steps": ["Summarize the goal and available capacity", "Explain allocation decisions", "Offer thoughtful next steps"], "next": {"to": "/home", "label": "Back to Home"}};

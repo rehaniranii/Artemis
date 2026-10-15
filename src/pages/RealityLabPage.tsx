@@ -1,0 +1,5 @@
+import { PageHeader } from '@/components/shared/PageHeader';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { ScenarioPicker } from '@/features/reality-lab/ScenarioPicker';
+import { ScenarioBadge } from '@/components/financial/ScenarioBadge';
+export default function RealityLabPage(){return <><PageHeader eyebrow="REALITY LAB / MODULE PREVIEW" title="Not every year goes up." description="A future space to experience difficult markets, ask better questions, and understand what uncertainty means for a plan." action={<ScenarioBadge kind="simulation"/>}/><div className="grid gap-6 lg:grid-cols-[1fr_1.5fr]"><div><ScenarioPicker/><p className="mt-5 text-xs text-muted-foreground">Future scenarios will use clearly labelled hypothetical data. Recovery timing and returns will never be guaranteed.</p></div><EmptyState title="Room for the difficult years." description="The simulator is not built yet. This foundation saves your selected scenario without inventing a performance result."/></div></>;}

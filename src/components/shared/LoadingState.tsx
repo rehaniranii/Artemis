@@ -1,0 +1,2 @@
+import { Skeleton } from '@/components/ui/skeleton';
+export function LoadingState(){return <div className="page-width py-16" role="status"><span className="sr-only">Loading page</span><Skeleton className="mb-6 h-4 w-28"/><Skeleton className="mb-5 h-16 max-w-lg"/><Skeleton className="mb-12 h-5 max-w-md"/><div className="grid gap-5 md:grid-cols-3">{[1,2,3].map(n=><Skeleton key={n} className="h-64 rounded-2xl"/>)}</div></div>;}
