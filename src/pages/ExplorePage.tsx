@@ -7,6 +7,8 @@ import { featuredTerms } from '@/data/glossary';
 import type { Investment } from '@/data/investments';
 import { explorerIntro } from '@/features/explorer/module';
 import { ExploreIntro } from '@/features/explorer/ExploreIntro';
+import { ExploreNav } from '@/features/explorer/ExploreNav';
+import { NextStep } from '@/components/shared/NextStep';
 import { CategoryExplorer } from '@/features/explorer/CategoryExplorer';
 import { InvestmentDetail, ComparisonView } from '@/features/explorer/InvestmentPanels';
 import { CompareTray, SuggestedComparisons } from '@/features/explorer/CompareTray';
@@ -26,13 +28,14 @@ export default function ExplorePage() {
   return (
     <>
       <PageHeader eyebrow="EXPLORE / UNDERSTAND YOUR OPTIONS" title={explorerIntro.title} description={explorerIntro.description} />
+      <ExploreNav />
       <ExploreIntro />
       <CategoryExplorer state={state} onCompare={onCompare} />
       <div className="mt-10 grid gap-8 border-t pt-8 lg:grid-cols-[1fr_auto] lg:items-start">
         <SuggestedComparisons state={state} />
-        <Link to="/mono-match" className="flex items-center gap-2 text-xs font-medium">Not sure where to start? Try MONO Match<ArrowUpRight size={15} /></Link>
+        <Link to="/explore/match" className="flex items-center gap-2 text-xs font-medium">Not sure where to start? Try Morrow Match<ArrowUpRight size={15} /></Link>
       </div>
-      <section aria-labelledby="glossary-heading" className="mt-8 rounded-3xl bg-secondary/40 p-6 md:p-8">
+      <section aria-labelledby="glossary-heading" className="mt-8 rounded-3xl ink-outline bg-cream p-6 md:p-8">
         <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="glossary-heading" className="font-serif text-3xl">Words you’ll meet</h2>
           <p className="text-xs text-muted-foreground">Tap any word for a plain-language meaning. Underlined words work the same way.</p>
@@ -40,6 +43,7 @@ export default function ExplorePage() {
         <div className="flex flex-wrap gap-2">{featuredTerms.map(id => <Term key={id} id={id} variant="chip" />)}</div>
       </section>
       <p className="mt-6 pb-20 text-xs text-muted-foreground">Educational descriptions of investment types, not product listings or recommendations. Apart from bank deposits, every option here can lose value.</p>
+      <NextStep to="/explore/match" label="Morrow Match: fund categories for you" hint="Educational suggestions based on your answers, plus example funds to compare." />
       <InvestmentDetail state={state} onCompare={onCompare} />
       <ComparisonView state={state} />
       <CompareTray state={state} message={message} onCompare={onCompare} />

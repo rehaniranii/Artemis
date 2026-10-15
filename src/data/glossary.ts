@@ -54,6 +54,14 @@ export const glossary = {
     short: 'Earning returns on your past returns, not just on what you put in. It works slowly at first and needs time — and it works on losses and fees too.',
     example: '₹100 growing 10% becomes ₹110, then ₹121 — the extra ₹1 is compounding.',
   },
+  aum: {
+    term: 'AUM',
+    short: 'Assets Under Management: the total money a fund manages for all its investors. Bigger isn’t automatically better — it just tells you the fund’s size.',
+  },
+  'index-fund': {
+    term: 'Index fund',
+    short: 'A fund that copies a market index instead of picking stocks, so its returns follow the market, minus small costs.',
+  },
   index: {
     term: 'Index',
     short: 'A list that tracks a group of investments, used as a scoreboard for a market. The Nifty 50, for example, follows 50 large Indian companies.',
@@ -67,6 +75,6 @@ export const glossary = {
 export type GlossaryId = keyof typeof glossary;
 
 /** Terms surfaced in the "words you'll meet" row; extra entries stay available inline. */
-export const featuredTerms: GlossaryId[] = ['sip', 'nav', 'expense-ratio', 'inflation', 'equity', 'debt', 'liquidity', 'diversification', 'exit-load', 'volatility', 'compounding'];
+export const featuredTerms: GlossaryId[] = ['sip', 'nav', 'aum', 'expense-ratio', 'index-fund', 'inflation', 'equity', 'debt', 'liquidity', 'diversification', 'exit-load', 'volatility', 'compounding'];
 
 export const isGlossaryId = (id: string): id is GlossaryId => id in glossary;

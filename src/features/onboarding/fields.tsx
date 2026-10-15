@@ -12,7 +12,7 @@ export function CurrencyInput({ value, onChange, label, suffix, size = 'lg', inv
   size?: 'lg' | 'md'; invalid?: boolean; describedBy?: string; autoFocus?: boolean;
 }) {
   return (
-    <div className={cn('flex items-baseline gap-2 border-b-2 pb-2 transition-colors focus-within:border-[#557355]', invalid ? 'border-destructive' : 'border-input')}>
+    <div className={cn('flex items-baseline gap-2 border-b-[3px] pb-2 transition-colors focus-within:border-plum', invalid ? 'border-destructive' : 'border-ink')}>
       <span aria-hidden="true" className={cn('font-serif text-muted-foreground', size === 'lg' ? 'text-4xl sm:text-5xl' : 'text-3xl')}>₹</span>
       <input
         aria-label={label}
@@ -40,7 +40,7 @@ export function Chip({ selected, onClick, children }: { selected: boolean; onCli
       type="button"
       aria-pressed={selected}
       onClick={onClick}
-      className={cn('rounded-full border px-4 py-2 text-xs transition-colors', selected ? 'border-[#557355] bg-secondary text-foreground' : 'bg-white/60 text-muted-foreground hover:border-primary hover:text-foreground')}
+      className={cn('rounded-full border-2 border-ink px-4 py-2 text-xs transition-all active:translate-y-px', selected ? 'bg-sun font-semibold text-ink shadow-[2px_2px_0_#10110F]' : 'bg-white text-muted-foreground hover:bg-cream hover:text-ink')}
     >
       {children}
     </button>
@@ -52,24 +52,28 @@ export function ChoiceList<T extends string>({ options, value, onChange, labelle
   options: { value: T; label: string; hint?: string }[]; value: T; onChange: (value: T) => void; labelledBy: string;
 }) {
   const name = useId();
+  const { reduceMotion } = useAppMotion();
   return (
     <div role="radiogroup" aria-labelledby={labelledBy} className="grid gap-3">
-      {options.map(option => {
+      {options.map((option, index) => {
         const selected = option.value === value;
         return (
-          <label
+          <motion.label
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.12 + index * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             key={option.value}
-            className={cn('group flex cursor-pointer items-center gap-4 rounded-2xl border bg-white/70 p-5 transition-all has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-[#557355] sm:p-6', selected ? 'border-[#557355] bg-secondary/50 shadow-[0_6px_24px_#5573551a]' : 'hover:border-primary/60 hover:bg-white')}
+            className={cn('group flex cursor-pointer items-center gap-4 rounded-2xl ink-outline bg-white p-5 transition-all has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-plum sm:p-6', selected ? 'border-ink bg-sun shadow-[4px_4px_0_#10110F] -translate-x-0.5 -translate-y-0.5' : 'hover:-translate-y-0.5 hover:bg-cream')}
           >
             <input type="radio" name={name} value={option.value} checked={selected} onChange={() => onChange(option.value)} className="sr-only" />
-            <span aria-hidden="true" className={cn('grid size-6 shrink-0 place-items-center rounded-full border transition-colors', selected ? 'border-[#557355] bg-[#557355] text-white' : 'border-input bg-white')}>
+            <span aria-hidden="true" className={cn('grid size-7 shrink-0 place-items-center rounded-full border-2 border-ink transition-colors', selected ? 'bg-plum text-white' : 'bg-white')}>
               {selected && <Check size={14} strokeWidth={2.5} />}
             </span>
             <span>
               <span className="block text-sm font-medium sm:text-base">{option.label}</span>
               {option.hint && <span className="mt-1 block text-xs text-muted-foreground">{option.hint}</span>}
             </span>
-          </label>
+          </motion.label>
         );
       })}
     </div>
@@ -83,7 +87,7 @@ export function Callout({ tone = 'calm', children }: { tone?: 'calm' | 'warning'
       role="status"
       initial={reduceMotion ? false : { opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      className={cn('rounded-2xl p-5 text-sm leading-relaxed', tone === 'warning' ? 'border border-warning/40 bg-[#bd776312]' : 'bg-secondary/50')}
+      className={cn('rounded-2xl p-5 text-sm leading-relaxed', tone === 'warning' ? 'border-2 border-ink bg-[#FBE3D9]' : 'border-2 border-ink bg-mint-soft')}
     >
       {children}
     </motion.div>

@@ -1,2 +1,0 @@
-import type { ModuleConfig } from '@/components/shared/ModulePlaceholder';
-export const moduleConfig:ModuleConfig = {"eyebrow": "MONO MATCH", "title": "A starting point. Not a verdict.", "description": "A future space to compare approaches and understand why an option might fit your circumstances.", "steps": ["Explain fit in plain language", "Separate willingness from ability to take risk", "Keep the final choice with you"], "next": {"to": "/explore", "label": "Back to Explore"}};

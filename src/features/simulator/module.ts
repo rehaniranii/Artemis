@@ -1,2 +1,0 @@
-import type { ModuleConfig } from '@/components/shared/ModulePlaceholder';
-export const moduleConfig:ModuleConfig = {"eyebrow": "SIMULATOR", "title": "Make space for “what if”.", "description": "A future space for clearly labelled hypothetical projections, powered by one shared set of inputs.", "steps": ["Compare contribution scenarios", "Show assumptions and uncertainty", "Keep taxes and fees explicit"], "next": {"to": "/plan", "label": "Back to My Plan"}};

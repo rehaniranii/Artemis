@@ -1,18 +1,28 @@
 import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Check, HandCoins, Landmark, Plus, Repeat, Shapes, Sprout, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Check, Plus, Repeat } from 'lucide-react';
+import { Coin, MoneyCard, Ring, Sprout } from '@/components/illustrations';
+import { usePointerParallax } from '@/lib/motion';
 import { useAppMotion } from '@/hooks/useAppMotion';
 import { cn } from '@/lib/utils';
 import { categories, investmentsIn, type CategoryId, type Investment } from '@/data/investments';
 import type { ExplorerState } from './useExplorerState';
 
-const icons: Record<CategoryId, LucideIcon> = { stability: Landmark, 'fixed-income': HandCoins, growth: Sprout, diversification: Shapes, methods: Repeat };
+/** Each category's own colour and illustration within the Morrow palette. */
+const identity: Record<Exclude<CategoryId, 'methods'>, { bg: string; text: string; art: React.ReactNode }> = {
+  stability: { bg: 'bg-sun', text: 'text-ink', art: <Coin className="w-20" /> },
+  'fixed-income': { bg: 'bg-mint', text: 'text-ink', art: <MoneyCard className="w-28" fill="#FFF5C7" /> },
+  growth: { bg: 'bg-plum', text: 'text-[#FFFDF2]', art: <Sprout className="w-20" /> },
+  diversification: { bg: 'bg-cream', text: 'text-ink', art: <Ring className="w-20" fill="#FFD95A" /> },
+};
 const assetCategories = categories.filter(c => c.id !== 'methods');
 const methods = categories.find(c => c.id === 'methods')!;
 
 export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; onCompare: (investment: Investment) => void }) {
   const { reduceMotion } = useAppMotion();
   const panel = useRef<HTMLDivElement>(null);
+  const grid = useRef<HTMLDivElement>(null);
+  usePointerParallax(grid);
   const selected = categories.find(c => c.id === state.category);
   const choose = (id: CategoryId) => state.selectCategory(state.category === id ? null : id);
 
@@ -24,9 +34,9 @@ export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; o
   return (
     <section aria-labelledby="categories-heading">
       <h2 id="categories-heading" className="sr-only">Investment categories</h2>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div ref={grid} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {assetCategories.map((category, index) => {
-          const Icon = icons[category.id];
+          const look = identity[category.id as keyof typeof identity];
           const active = state.category === category.id;
           const dimmed = state.category !== null && !active;
           return (
@@ -37,18 +47,19 @@ export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; o
               aria-controls="category-options"
               onClick={() => choose(category.id)}
               className={cn(
-                'group relative flex items-center gap-4 rounded-3xl border p-5 text-left transition-all duration-300 sm:min-h-48 sm:flex-col sm:items-stretch sm:justify-between sm:p-6',
-                active ? 'border-[#557355] bg-secondary/70 shadow-[0_16px_40px_#5573551f]' : 'bg-white/70 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white hover:shadow-[0_12px_32px_#2225210a]',
-                dimmed && 'opacity-60 hover:opacity-100',
+                'group relative flex items-center gap-4 overflow-hidden rounded-3xl ink-card ink-lift p-5 text-left sm:min-h-56 sm:flex-col sm:items-stretch sm:justify-between sm:p-6',
+                look.bg, look.text,
+                active && '-translate-x-1 -translate-y-1 shadow-[9px_9px_0_#10110F] ring-4 ring-ink ring-offset-2 ring-offset-paper',
+                dimmed && 'opacity-55 saturate-50 hover:opacity-100 hover:saturate-100',
               )}
             >
               <div className="flex shrink-0 items-start justify-between">
-                <span className={cn('grid size-11 place-items-center rounded-full transition-colors', active ? 'bg-[#557355] text-white' : 'bg-secondary/70 text-[#557355]')}><Icon size={19} strokeWidth={1.6} /></span>
-                <span className="hidden text-[10px] tabular-nums text-muted-foreground sm:inline">0{index + 1}</span>
+                <span aria-hidden="true" className="w-16 shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 sm:w-auto"><span data-depth="0.5" className="block">{look.art}</span></span>
+                <span className="hidden font-serif text-2xl tabular-nums opacity-60 sm:inline">0{index + 1}</span>
               </div>
               <div>
-                <h3 className="font-serif text-2xl leading-none sm:mt-8 sm:text-[28px]">{category.name}</h3>
-                <p className="mt-2 text-xs text-muted-foreground">{category.purpose}</p>
+                <h3 className="display text-3xl sm:mt-6 sm:text-[34px]">{category.name}</h3>
+                <p className="mt-2 text-xs opacity-75">{category.purpose}</p>
               </div>
             </button>
           );
@@ -61,13 +72,13 @@ export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; o
         aria-controls="category-options"
         onClick={() => choose('methods')}
         className={cn(
-          'mt-3 flex w-full flex-col gap-3 rounded-3xl border border-dashed p-5 text-left transition-all sm:flex-row sm:items-center sm:justify-between sm:px-6',
-          state.category === 'methods' ? 'border-[#557355] bg-secondary/60' : 'border-primary/50 bg-transparent hover:bg-white/60',
+          'mt-4 flex w-full flex-col gap-3 rounded-3xl border-2 border-dashed border-ink p-5 text-left transition-all sm:flex-row sm:items-center sm:justify-between sm:px-6',
+          state.category === 'methods' ? 'border-ink bg-sun shadow-[3px_3px_0_#10110F]' : 'bg-white hover:bg-cream',
           state.category !== null && state.category !== 'methods' && 'opacity-60 hover:opacity-100',
         )}
       >
         <span className="flex items-center gap-4">
-          <span className="grid size-9 shrink-0 place-items-center rounded-full border border-primary/50 text-[#557355]"><Repeat size={15} /></span>
+          <span className="grid size-10 shrink-0 place-items-center rounded-full border-2 border-ink bg-mint"><Repeat size={16} /></span>
           <span>
             <span className="block text-sm font-medium">{methods.name}: SIP and lump sum</span>
             <span className="block text-xs text-muted-foreground">Not a type of investment — a way of putting money into one.</span>
@@ -85,11 +96,11 @@ export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; o
               animate={{ opacity: 1, y: 0 }}
               exit={reduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -8, transition: { duration: 0.15 } }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 rounded-3xl bg-white/60 p-6 ring-1 ring-border md:p-8"
+              className="mt-8 rounded-3xl ink-card bg-cream p-6 md:p-8"
             >
               <div className="mb-7 max-w-2xl">
                 <p className="eyebrow mb-3">{selected.name}</p>
-                <p className="font-serif text-3xl leading-tight md:text-4xl">{selected.description}</p>
+                <p className="display text-3xl md:text-5xl">{selected.description}</p>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {investmentsIn(selected.id).map((investment, index) => (
@@ -98,13 +109,13 @@ export function CategoryExplorer({ state, onCompare }: { state: ExplorerState; o
                     initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: reduceMotion ? 0 : 0.08 + index * 0.06, duration: 0.3 }}
-                    className="flex flex-col rounded-2xl border bg-card p-6"
+                    className="flex flex-col rounded-2xl ink-outline ink-lift bg-card p-6"
                   >
-                    <h3 className="font-serif text-3xl">{investment.name}</h3>
+                    <h3 className="display text-4xl">{investment.name}</h3>
                     <p className="mt-2 text-sm">{investment.tagline}</p>
-                    <p className="mt-4 border-l-2 border-primary/50 pl-3 text-xs italic leading-relaxed text-muted-foreground">{investment.analogy}</p>
+                    <p className="mt-4 border-l-4 border-sun pl-3 text-xs italic leading-relaxed text-muted-foreground">{investment.analogy}</p>
                     <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-7">
-                      <button type="button" onClick={() => state.openItem(investment.id)} className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs text-background transition-transform hover:scale-[1.02]">
+                      <button type="button" onClick={() => state.openItem(investment.id)} className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-xs text-white transition-transform hover:scale-[1.02]">
                         Understand {investment.shortName}<ArrowRight size={14} />
                       </button>
                       <CompareToggle investment={investment} state={state} onCompare={onCompare} />
@@ -128,7 +139,7 @@ export function CompareToggle({ investment, state, onCompare }: { investment: In
       aria-pressed={on}
       aria-label={`${on ? 'Remove' : 'Add'} ${investment.shortName} ${on ? 'from' : 'to'} comparison`}
       onClick={() => onCompare(investment)}
-      className={cn('inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs transition-colors', on ? 'border-[#557355] bg-secondary text-foreground' : 'text-muted-foreground hover:border-primary hover:text-foreground')}
+      className={cn('inline-flex items-center gap-1.5 rounded-full border-2 border-ink px-4 py-2 text-xs transition-colors', on ? 'bg-sun font-semibold text-ink' : 'bg-white text-muted-foreground hover:bg-cream hover:text-ink')}
     >
       {on ? <Check size={13} /> : <Plus size={13} />}{on ? 'Comparing' : 'Compare'}
     </button>

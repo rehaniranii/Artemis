@@ -1,2 +1,0 @@
-import type { ModuleConfig } from '@/components/shared/ModulePlaceholder';
-export const moduleConfig:ModuleConfig = {"eyebrow": "MY PLAN", "title": "A plan with room for life.", "description": "Your goal, your resources and your choices belong in one place. The planning experience will be built here.", "steps": ["Adjust contributions and time horizon", "Explore allocation trade-offs", "Inspect projection assumptions"], "next": {"to": "/blueprint", "label": "Preview your blueprint"}};

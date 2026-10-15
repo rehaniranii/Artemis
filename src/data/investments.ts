@@ -3,27 +3,8 @@
  * Text may contain [[glossary-id|shown text]] tokens rendered as clickable definitions.
  * Deliberately no return figures or numeric risk scores: qualitative descriptions only.
  */
-export type CategoryId = 'stability' | 'fixed-income' | 'growth' | 'diversification' | 'methods';
-
-export interface InvestmentCategory { id: CategoryId; name: string; purpose: string; description: string }
-
-export interface Investment {
-  id: string;
-  category: CategoryId;
-  /** Methods (SIP, lump sum) describe how money goes in, so they are only compared with each other. */
-  kind: 'asset' | 'method';
-  name: string;
-  shortName: string;
-  tagline: string;
-  analogy: string;
-  detail: {
-    what: string; how: string; returnSource: string; decline: string;
-    access: string; lockIn: string; fees: string; goal: string;
-  };
-  why: string[];
-  catches: string[];
-  compare: { returns: string; risk: string; liquidity: string; horizon: string; fees: string; limitations: string };
-}
+import type { CategoryId, Investment, InvestmentCategory } from '@/types/financial';
+export type { CategoryId, Investment, InvestmentCategory };
 
 export const categories: InvestmentCategory[] = [
   { id: 'stability', name: 'Saving & Stability', purpose: 'Keep money safe and close at hand.', description: 'Places where your rupees don’t swing in value. The trade-off: growth is modest, and inflation can quietly outpace it.' },

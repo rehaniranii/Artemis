@@ -65,9 +65,9 @@ function SavingsStep({ answers, update, errorId, invalid }: StepProps) {
         <div className="flex justify-between text-[11px] text-muted-foreground tabular-nums"><span>₹0</span><span>{formatINR(income)}</span></div>
       </div>
       {amount > 0 && amount <= income && (
-        <div className="rounded-2xl border bg-white/70 p-5 sm:p-6">
+        <div className="rounded-2xl ink-outline bg-white p-5 sm:p-6">
           <p className="font-serif text-2xl leading-snug sm:text-3xl">
-            If you save <AnimatedNumber value={amount} />, you’ll have <AnimatedNumber value={remaining} className="text-[#557355]" /> remaining.
+            If you save <AnimatedNumber value={amount} />, you’ll have <AnimatedNumber value={remaining} className="text-plum" /> remaining.
           </p>
           <p className="mt-3 text-xs text-muted-foreground">That remaining money still has work to do — rent, food, travel, family and the unexpected. It isn’t “spare”.</p>
         </div>
@@ -85,7 +85,7 @@ function SavingsStep({ answers, update, errorId, invalid }: StepProps) {
 function TimelineStep({ answers, update, errorId, invalid }: StepProps) {
   const [custom, setCustom] = useState(!answers.horizonFlexible && !HORIZON_CHIPS.includes(answers.horizonYears));
   const contributed = answers.monthlyContribution * 12 * answers.horizonYears;
-  const tile = (selected: boolean) => cn('rounded-2xl border p-5 text-left transition-all sm:p-6', selected ? 'border-[#557355] bg-secondary/50 shadow-[0_6px_24px_#5573551a]' : 'bg-white/70 hover:border-primary/60 hover:bg-white');
+  const tile = (selected: boolean) => cn('rounded-2xl border-2 border-ink p-5 text-left transition-all sm:p-6', selected ? 'border-ink bg-sun shadow-[4px_4px_0_#10110F] -translate-x-0.5 -translate-y-0.5' : 'bg-white hover:bg-cream hover:bg-white');
   return (
     <div className="space-y-6">
       <div role="group" aria-label="Timeline options" className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -110,7 +110,7 @@ function TimelineStep({ answers, update, errorId, invalid }: StepProps) {
               aria-invalid={invalid || undefined} aria-describedby={errorId}
               value={answers.horizonYears || ''}
               onChange={event => update({ horizonYears: event.target.value === '' ? 0 : Math.round(Number(event.target.value)), horizonFlexible: false })}
-              className="h-11 w-20 rounded-xl border border-input bg-white px-3 text-center outline-none focus-visible:border-[#557355]"
+              className="h-11 w-20 rounded-xl border border-input bg-white px-3 text-center outline-none focus-visible:border-plum"
             />
             <span className="text-muted-foreground">years</span>
           </label>
@@ -177,20 +177,20 @@ function SummaryStep({ answers, onEdit }: StepProps) {
   ];
   return (
     <div className="space-y-6">
-      <dl className="divide-y rounded-2xl border bg-white/70">
+      <dl className="divide-y rounded-2xl ink-outline bg-white">
         {rows.map(([label, value, step]) => (
           <div key={label} className="flex items-center justify-between gap-4 px-5 py-4 sm:px-6">
             <div className="min-w-0">
               <dt className="eyebrow">{label}</dt>
               <dd className="mt-1 text-sm sm:text-base">{value}</dd>
             </div>
-            <button type="button" onClick={() => onEdit(step)} aria-label={`Edit ${label.toLowerCase()}`} className="grid size-9 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground">
+            <button type="button" onClick={() => onEdit(step)} aria-label={`Edit ${label.toLowerCase()}`} className="grid size-9 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-cream hover:text-foreground">
               <Pencil size={14} />
             </button>
           </div>
         ))}
       </dl>
-      <section aria-labelledby="learning-profile" className="rounded-2xl bg-secondary/70 p-6 sm:p-7">
+      <section aria-labelledby="learning-profile" className="rounded-2xl bg-cream p-6 sm:p-7">
         <p className="eyebrow">YOUR LEARNING PROFILE</p>
         <h2 id="learning-profile" className="mt-3 font-serif text-4xl">{profile.name}</h2>
         <p className="mt-2 text-sm">{profile.summary}</p>
@@ -201,11 +201,11 @@ function SummaryStep({ answers, onEdit }: StepProps) {
 }
 
 export const questionSteps: QuestionStep[] = [
-  { eyebrow: 'YOUR GOAL', plainTitle: 'What’s the number you’re working toward?', title: <>What’s the number you’re <em className="italic text-[#6a8769]">working toward?</em></>, Body: GoalStep },
+  { eyebrow: 'YOUR GOAL', plainTitle: 'What’s the number you’re working toward?', title: <>What’s the number you’re <em className="italic text-plum">working toward?</em></>, Body: GoalStep },
   { eyebrow: 'WHAT COMES IN', plainTitle: 'How much money do you receive each month?', title: 'How much money do you receive each month?', Body: IncomeStep },
-  { eyebrow: 'WHAT YOU SET ASIDE', plainTitle: 'How much can you comfortably set aside?', title: <>How much can you <em className="italic text-[#6a8769]">comfortably</em> set aside?</>, Body: SavingsStep },
+  { eyebrow: 'WHAT YOU SET ASIDE', plainTitle: 'How much can you comfortably set aside?', title: <>How much can you <em className="italic text-plum">comfortably</em> set aside?</>, Body: SavingsStep },
   { eyebrow: 'YOUR TIMELINE', plainTitle: 'When would you like to reach your goal?', title: 'When would you like to reach your goal?', Body: TimelineStep },
-  { eyebrow: 'UPS AND DOWNS', plainTitle: 'Imagine ₹10,000 temporarily becomes ₹8,000. How would you feel?', title: <>Imagine ₹10,000 temporarily becomes ₹8,000. <em className="italic text-[#6a8769]">How would you feel?</em></>, Body: RiskStep },
+  { eyebrow: 'UPS AND DOWNS', plainTitle: 'Imagine ₹10,000 temporarily becomes ₹8,000. How would you feel?', title: <>Imagine ₹10,000 temporarily becomes ₹8,000. <em className="italic text-plum">How would you feel?</em></>, Body: RiskStep },
   { eyebrow: 'ACCESS TO MONEY', plainTitle: 'Would you need access to these savings soon?', title: 'Would you need access to these savings soon?', Body: AccessStep },
   { eyebrow: 'A SAFETY NET', plainTitle: 'Do you have money set aside for emergencies?', title: 'Do you have money set aside for emergencies?', Body: EmergencyStep },
   { eyebrow: 'ALL SET', plainTitle: 'Your journey starts here.', title: 'Your journey starts here.', Body: SummaryStep },

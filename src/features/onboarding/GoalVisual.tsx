@@ -27,8 +27,8 @@ export function GoalVisual({ amount }: { amount: number }) {
           initial={false}
           animate={{ r: radius(amount), cy: baseline - radius(amount) }}
           transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 18 }}
-          fill="#DDE6D5"
-          stroke="#8BA88B"
+          fill="#FFF5C7"
+          stroke="#4B3B63"
         />
         <motion.circle
           cx={center}
@@ -36,15 +36,15 @@ export function GoalVisual({ amount }: { amount: number }) {
           animate={{ r: radius(FIRST_MILLION), cy: baseline - radius(FIRST_MILLION) }}
           transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 18 }}
           fill="none"
-          stroke="#557355"
+          stroke="#4B3B63"
           strokeDasharray="4 5"
         />
-        <line x1={center - MAX_RADIUS} x2={center + MAX_RADIUS} y1={baseline + 0.5} y2={baseline + 0.5} stroke="#d4d8cc" />
+        <line x1={center - MAX_RADIUS} x2={center + MAX_RADIUS} y1={baseline + 0.5} y2={baseline + 0.5} stroke="#D6CB9E" />
       </svg>
       <figcaption className="space-y-3 text-center text-xs text-muted-foreground sm:text-left">
         <p className="font-serif text-2xl text-foreground">{comparison}</p>
-        <p className="flex items-center justify-center gap-2 sm:justify-start"><span className="size-3 rounded-full border border-primary bg-secondary" />Your goal · ₹{amountInWords(amount)}</p>
-        <p className="flex items-center justify-center gap-2 sm:justify-start"><span className="size-3 rounded-full border border-dashed border-[#557355]" />₹10 lakh · one million rupees</p>
+        <p className="flex items-center justify-center gap-2 sm:justify-start"><span className="size-3 rounded-full border-2 border-ink bg-cream" />Your goal · ₹{amountInWords(amount)}</p>
+        <p className="flex items-center justify-center gap-2 sm:justify-start"><span className="size-3 rounded-full border border-dashed border-plum" />₹10 lakh · one million rupees</p>
       </figcaption>
     </figure>
   );

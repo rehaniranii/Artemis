@@ -44,7 +44,7 @@ describe('Investment Explorer', () => {
     expect(within(dialog).getByRole('heading', { name: 'What’s the catch?' })).toBeInTheDocument();
     expect(within(dialog).getByRole('heading', { name: 'Why people consider it' })).toBeInTheDocument();
     expect(within(dialog).getByRole('heading', { name: 'What could go wrong?' })).toBeInTheDocument();
-    expect(within(dialog).getByRole('link', { name: /MONO Match/ })).toHaveAttribute('href', '/mono-match');
+    expect(within(dialog).getByRole('link', { name: /Morrow Match/ })).toHaveAttribute('href', '/explore/match');
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });

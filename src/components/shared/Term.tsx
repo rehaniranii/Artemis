@@ -13,8 +13,8 @@ export function Term({ id, children, variant = 'inline' }: { id: GlossaryId; chi
         aria-label={`What is ${entry.term}?`}
         className={cn(
           variant === 'inline'
-            ? 'cursor-help rounded-sm underline decoration-[#8BA88B] decoration-dotted decoration-[1.5px] underline-offset-[3px] hover:decoration-[#557355] data-[state=open]:bg-secondary/70'
-            : 'rounded-full border bg-white/70 px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground data-[state=open]:border-[#557355] data-[state=open]:bg-secondary data-[state=open]:text-foreground',
+            ? 'cursor-help rounded-sm underline decoration-plum decoration-dotted decoration-2 underline-offset-[3px] hover:decoration-plum data-[state=open]:bg-sun'
+            : 'rounded-full border-2 border-ink bg-white px-3.5 py-1.5 text-xs font-medium text-ink transition-all hover:-translate-y-0.5 hover:bg-cream hover:text-foreground data-[state=open]:border-plum data-[state=open]:bg-sun data-[state=open]:text-foreground',
         )}
       >
         {children ?? entry.term}
@@ -24,11 +24,11 @@ export function Term({ id, children, variant = 'inline' }: { id: GlossaryId; chi
           side="top"
           sideOffset={8}
           collisionPadding={16}
-          className="z-50 w-[min(20rem,calc(100vw-32px))] rounded-2xl border bg-white p-5 text-left shadow-[0_20px_50px_#22252117] outline-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
+          className="z-50 w-[min(20rem,calc(100vw-32px))] rounded-2xl border-2 border-ink bg-white p-5 text-left shadow-[5px_5px_0_#10110F] outline-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
         >
           <div className="mb-2 flex items-start justify-between gap-3">
             <p className="font-serif text-2xl leading-none">{entry.term}</p>
-            <Popover.Close aria-label="Close definition" className="-mr-1 -mt-1 rounded-full p-1 text-muted-foreground hover:bg-secondary/60 hover:text-foreground"><X size={14} /></Popover.Close>
+            <Popover.Close aria-label="Close definition" className="-mr-1 -mt-1 rounded-full p-1 text-muted-foreground hover:bg-cream hover:text-foreground"><X size={14} /></Popover.Close>
           </div>
           <p className="text-sm leading-relaxed text-foreground">{entry.short}</p>
           {'example' in entry && entry.example && <p className="mt-3 border-t pt-3 text-xs leading-relaxed text-muted-foreground">For example: {entry.example}</p>}
