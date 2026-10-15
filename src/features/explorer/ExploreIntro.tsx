@@ -35,19 +35,18 @@ export function ExploreIntro() {
       initial={reduceMotion || !fromOnboarding ? false : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.15 }}
-      className="mb-10 rounded-3xl bg-secondary/70 p-7 md:p-10"
+      className="mb-10 rounded-3xl border border-primary/30 bg-secondary/40 p-6 md:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <p className="eyebrow">{fromOnboarding ? 'YOUR JOURNEY STARTS HERE' : 'WHERE YOU’RE STARTING'}</p>
         <Link to="/onboarding" className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"><Pencil size={12} />Edit answers</Link>
       </div>
-      <h2 id="explore-welcome" className="mt-5 max-w-2xl font-serif text-3xl leading-tight md:text-4xl">Welcome, {profile.name}. {copy.summary}</h2>
-      <p className="mt-4 max-w-2xl text-sm text-muted-foreground">{copy.explore}</p>
-      {journey.emergencyStatus === 'not-yet' && <p className="mt-3 max-w-2xl text-sm text-muted-foreground">And since you don’t have emergency savings yet, we’ll keep that safety net in view along the way.</p>}
-      <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-primary/25 pt-6 md:grid-cols-4">
-        {facts.map(([label, value]) => <div key={label}><dt className="eyebrow">{label}</dt><dd className="mt-2 font-serif text-2xl">{value}</dd></div>)}
+      <h2 id="explore-welcome" className="mt-4 max-w-3xl font-serif text-2xl leading-snug md:text-3xl">Welcome, {profile.name}. {copy.summary}</h2>
+      <p className="mt-3 max-w-3xl text-sm text-muted-foreground">{copy.explore}{journey.emergencyStatus === 'not-yet' && ' And since you don’t have emergency savings yet, Saving & Stability is a good first stop.'}</p>
+      <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-primary/25 pt-5 md:grid-cols-4">
+        {facts.map(([label, value]) => <div key={label}><dt className="eyebrow">{label}</dt><dd className="mt-1.5 font-serif text-xl">{value}</dd></div>)}
       </dl>
-      <p className="mt-6 text-[11px] text-muted-foreground">An educational profile from your answers — not a suitability assessment or a recommendation.</p>
+      <p className="mt-5 text-[11px] text-muted-foreground">An educational profile from your answers — not a suitability assessment or a recommendation.</p>
     </motion.section>
   );
 }

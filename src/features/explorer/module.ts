@@ -1,1 +1,1 @@
-export const explorerIntro={title:'A little understanding goes a long way.',description:'Start with concepts, not a catalogue. This is a preview of the learning space; detailed comparisons will come in a later phase.'};
+export const explorerIntro={title:'Let’s make sense of your options.',description:'Understand what each investment does before deciding where your money goes.'};

@@ -37,6 +37,7 @@ Created source, configuration, documentation and test files for this phase. The 
 - `src/components/shared/LoadingState.tsx`
 - `src/components/shared/ModulePlaceholder.tsx`
 - `src/components/shared/PageHeader.tsx`
+- `src/components/shared/Term.tsx`
 - `src/components/ui/badge.tsx`
 - `src/components/ui/button.tsx`
 - `src/components/ui/card.tsx`
@@ -50,11 +51,17 @@ Created source, configuration, documentation and test files for this phase. The 
 - `src/data/assumptions.ts`
 - `src/data/defaults.ts`
 - `src/data/funds.ts`
+- `src/data/glossary.ts`
+- `src/data/investments.ts`
 - `src/features/blueprint/module.ts`
 - `src/features/dashboard/PreferencesPanel.tsx`
 - `src/features/explorer/module.ts`
 - `src/features/mono-match/module.ts`
+- `src/features/explorer/CategoryExplorer.tsx`
+- `src/features/explorer/CompareTray.tsx`
 - `src/features/explorer/ExploreIntro.tsx`
+- `src/features/explorer/InvestmentPanels.tsx`
+- `src/features/explorer/useExplorerState.ts`
 - `src/features/onboarding/GoalVisual.tsx`
 - `src/features/onboarding/OnboardingFlow.tsx`
 - `src/features/onboarding/fields.tsx`
