@@ -54,7 +54,13 @@ Created source, configuration, documentation and test files for this phase. The 
 - `src/features/dashboard/PreferencesPanel.tsx`
 - `src/features/explorer/module.ts`
 - `src/features/mono-match/module.ts`
-- `src/features/onboarding/ProfileDraft.tsx`
+- `src/features/explorer/ExploreIntro.tsx`
+- `src/features/onboarding/GoalVisual.tsx`
+- `src/features/onboarding/OnboardingFlow.tsx`
+- `src/features/onboarding/fields.tsx`
+- `src/features/onboarding/journey.ts`
+- `src/features/onboarding/journey.test.ts`
+- `src/features/onboarding/steps.tsx`
 - `src/features/planner/module.ts`
 - `src/features/reality-lab/ScenarioPicker.tsx`
 - `src/features/simulator/module.ts`

@@ -1,3 +1,2 @@
-import { PageHeader } from '@/components/shared/PageHeader';
-import { ProfileDraft } from '@/features/onboarding/ProfileDraft';
-export default function OnboardingPage(){return <><PageHeader eyebrow="YOUR STARTING POINT / PREVIEW" title="Start with your life." description="A small preference form to establish your starting point. The full guided onboarding journey will come later."/><div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]"><ProfileDraft/><aside className="pt-4"><p className="eyebrow mb-7">NOTHING TO GET PERFECT</p><h2 className="font-serif text-4xl leading-tight">A plan should fit you.<br/>Not the other way around.</h2><p className="mt-6 text-sm text-muted-foreground">The initial values describe Aarav’s demo persona. Change them to try the foundation. They stay in this browser and can be edited again.</p><p className="mt-5 text-sm text-muted-foreground">Saving these inputs does not generate advice, recommend a fund, or execute an investment.</p></aside></div></>;}
+import { OnboardingFlow } from '@/features/onboarding/OnboardingFlow';
+export default function OnboardingPage(){return <OnboardingFlow/>;}
