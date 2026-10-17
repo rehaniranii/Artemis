@@ -1,88 +1,122 @@
-# MONO — Make Money Make Sense
+<p align="center">
+  <img src="public/morrow-logo.jpg" alt="Morrow" width="560" />
+</p>
 
-A frontend-only foundation for a financial education hackathon. The UI uses warm ivory, sage, Instrument Serif and Inter. This phase intentionally stops at the application shell, persisted inputs, reusable components and module placeholders.
+<h1 align="center">Morrow</h1>
 
-## Run locally
+<p align="center"><strong>Your money. Your tomorrow.</strong><br/>
+A friendly, jargon-free space for first-time investors in India to understand their options, plan toward their first million and see what happens when markets don't cooperate.</p>
 
-Node.js 22.12+ (tested with Node 26.10). Dependencies are locked in `package-lock.json`.
+<p align="center">
+  <a href="https://artemis-ten-theta.vercel.app"><strong>🌐 Live demo → artemis-ten-theta.vercel.app</strong></a>
+</p>
 
-```sh
+---
+
+## Why Morrow?
+
+Too many options, too much jargon, and too many "get rich quick" promises. Morrow takes a first-time investor from *"where do I even start?"* to a one-page financial blueprint: no stock tips, no overnight riches, just honest, illustrative maths.
+
+> ⚠️ Morrow is an educational tool. All projections are illustrative, not promises, and nothing here is financial advice.
+
+## Features
+
+| | |
+| --- | --- |
+| **Guided onboarding** | Seven quick questions (about two minutes) set your goal, income, expenses, horizon and comfort with risk. It's pre-filled with a demo persona, Aarav, so you can explore straight away. |
+| **Explore** | Plain-language cards explain what each type of investment does, with a compare tray to view them side by side. |
+| **Morrow Match** | Simple, transparent rules pick up to three mutual fund categories worth *learning about*, based on your goal, timeline and monthly budget. |
+| **My Plan** | A plan builder where every number updates instantly, plus an SIP calculator, a "time machine" and a side-by-side comparison of possible futures. An optional toggle shows future purchasing power after inflation. |
+| **Reality Lab** | A market downturn simulator. Try a hypothetical bad year on your plan without changing your saved plan. |
+| **Financial Blueprint** | Your whole plan on one printable page, generated from your answers. You can save it or print/export it. |
+| **Built-in glossary** | Financial terms are explained inline wherever they appear. |
+| **Accessible by default** | Keyboard-friendly navigation, accessible sliders and sheets, and support for reduced-motion preferences. |
+
+## Screenshots
+
+| Landing | Onboarding |
+| --- | --- |
+| ![Landing page](docs/screenshots/landing.jpg) | ![Onboarding](docs/screenshots/onboarding.jpg) |
+| **Explore** | **My Plan** |
+| ![Explore your options](docs/screenshots/explore.jpg) | ![Plan builder](docs/screenshots/plan.jpg) |
+| **Reality Lab** | **Financial Blueprint** |
+| ![Reality Lab downturn simulator](docs/screenshots/reality-lab.jpg) | ![Financial Blueprint](docs/screenshots/blueprint.jpg) |
+
+## Tech stack
+
+| Area | Tools |
+| --- | --- |
+| **Framework** | [React 19](https://react.dev) + [TypeScript 5.9](https://www.typescriptlang.org) |
+| **Build tool** | [Vite 7](https://vite.dev) |
+| **Routing** | [React Router 7](https://reactrouter.com), using hash routing so static hosting needs no rewrites |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com), `tw-animate-css` |
+| **UI primitives** | [Radix UI](https://www.radix-ui.com) set up shadcn/ui-style (`class-variance-authority`, `clsx`, `tailwind-merge`) |
+| **Icons** | [Lucide](https://lucide.dev) |
+| **Animation** | [Motion](https://motion.dev) for UI transitions, [GSAP](https://gsap.com) for scroll storytelling, [Lenis](https://lenis.darkroom.engineering) for smooth scrolling |
+| **Charts** | [Recharts](https://recharts.org) |
+| **State** | [Zustand](https://zustand.docs.pmnd.rs), persisted to `localStorage` with safe fallbacks |
+| **Fonts** | DM Serif Display, Instrument Serif and Inter, self-hosted via Fontsource |
+| **Testing** | [Vitest](https://vitest.dev), React Testing Library, jsdom |
+| **Hosting** | [Vercel](https://vercel.com) |
+
+Morrow is **frontend-only**. There is no backend, login or real money movement. Your data stays in your browser.
+
+## Getting started
+
+Requires **Node.js 22.12+**.
+
+```bash
+git clone https://github.com/rehaniranii/Artemis.git
+cd Artemis
 npm ci
 npm run dev
-npm run typecheck
-npm test
-npm run build
-npm run preview
 ```
 
-## Architecture
+Then open the local URL Vite prints (usually http://127.0.0.1:5173).
 
-- `src/pages/`: lazy-loaded route entry points; no duplicate financial state.
-- `src/features/`: module-specific UI and configuration, separated by responsibility.
-- `src/components/ui/`: official shadcn/ui source components built on Radix, adapted to local tokens and the `cn` helper. Slider thumbs explicitly inherit accessible labels.
-- `src/components/layout/`: application shell, responsive navigation and render-error boundary.
-- `src/components/shared/`: page headings, placeholders, animated numbers, loading/empty states and disclaimers.
-- `src/components/financial/`: reusable cards, progress ring, risk and scenario labels, contribution slider and tooltip.
-- `src/components/charts/`: the isolated Recharts primitive. Loaded only in the component library for now.
-- `src/types/`: domain contracts. Investment method (SIP) is not represented as an asset category.
-- `src/data/`: demo persona, fictional concept cards and explicitly illustrative assumptions.
-- `src/store/`: one Zustand source of truth plus normalization and validation.
-- `src/hooks/`: derived financial summary and reduced-motion preference.
-- `src/lib/calculations/`: pure financial helpers, separate from presentation.
-- `src/styles/`: Tailwind v4 tokens, typography, shared treatments and reduced-motion rules.
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Type-check and build for production into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run typecheck` | Run the TypeScript compiler only |
+| `npm test` | Run the Vitest test suite |
 
-The requested feature boundaries exist for onboarding, explorer, MONO Match, planner, simulator, Reality Lab, dashboard and blueprint. A sidebar was intentionally unnecessary for four primary navigation jobs.
+## Project structure
+
+```
+src/
+├── pages/            Route entry points (lazy-loaded)
+├── features/         Feature modules: onboarding, explorer, match, plan, reality, story, dashboard
+├── components/
+│   ├── ui/           Radix-based primitives (button, input, sheet, slider…)
+│   ├── layout/       App shell, navbar, error boundary
+│   ├── shared/       Page headers, empty states, disclaimers, glossary terms
+│   ├── financial/    Progress ring, investment slider and other money widgets
+│   ├── charts/       Recharts wrappers
+│   └── illustrations/
+├── store/            Zustand store: single source of truth, validated and persisted
+├── lib/calculations/ Pure financial maths (SIP / future value), fully unit-tested
+├── data/             Investment concepts, funds, assumptions, glossary, demo persona
+├── hooks/            Derived financial summary, motion preferences
+└── styles/           Tailwind tokens and typography
+```
 
 ## Routes
 
-React Router uses **hash routing** so static hosting supports direct navigation and reloads without a server rewrite. Example: `/#/plan`.
+| Path | Page |
+| --- | --- |
+| `/#/` | Landing |
+| `/#/onboarding` | Guided onboarding |
+| `/#/home` | Your dashboard |
+| `/#/explore` | Explore investment options |
+| `/#/explore/match` | Morrow Match |
+| `/#/explore/funds/:fundId` | Fund detail |
+| `/#/plan` | My Plan (builder, SIP calculator, time machine, compare futures) |
+| `/#/reality-lab` | Reality Lab downturn simulator |
+| `/#/blueprint` | Financial Blueprint |
+| `/#/design-system` | Component library |
 
-| Path | Purpose | Current scope |
-| --- | --- | --- |
-| `/` | Landing | Designed introduction and working links |
-| `/home` | Home | Saved profile summary, empty demo portfolio, preferences |
-| `/explore` | Explore | Concept previews; no fund marketplace |
-| `/explore/funds/:fundId` | Fund detail | Validated concept route and detail placeholder |
-| `/plan` | My Plan | Planner placeholder |
-| `/reality-lab` | Reality Lab | Saved scenario choice; playback placeholder |
-| `/onboarding` | Starting point | Basic saved-input form; full guided flow deferred |
-| `/blueprint` | Financial Blueprint | Placeholder |
-| `/mono-match` | MONO Match | Placeholder; no recommendations |
-| `/simulator` | Simulator | Placeholder; no projections generated |
-| `/design-system` | Component library | Isolated component examples; no financial state changes |
-| `*` | Not found | Recovery link; also used for invalid fund IDs |
+## Disclaimer
 
-The old single-page anchors are mapped in `main.tsx` to relevant new routes. The old site remains in `archive/honest-million-v4/` and Git history.
-
-## State & persistence
-
-`useFinancialStore` owns the profile, INR goal, income, essential expenses, monthly capacity, horizon, risk tolerance, portfolio allocation, selected concept IDs, scenario, demo holdings and preferences. It persists only data (not actions) under `mono:financial-state`, schema version 1. Older prototype storage keys are left untouched; MONO starts with a fresh demo persona.
-
-- Financial capacity is derived from income minus essentials; it is not risk tolerance.
-- Profile updates cannot create a contribution amount greater than available income.
-- Allocations must be nonnegative, finite and sum to 100%; invalid updates are rejected atomically.
-- Persisted objects are normalized, bounded and checked against known IDs. Migration falls back to safe demo values.
-- Malformed JSON and denied storage do not crash the app. A visible notice explains when persistence is unavailable.
-- Holdings start empty. No fabricated account balance or market performance is shown.
-- The browser's reduced-motion preference and the saved app preference both apply. Calm view is saved; full performance summaries are deferred.
-- `resetDemo()` resets only MONO's data, not other LocalStorage keys.
-
-## Financial and visual conventions
-
-All amounts use INR formatting. Assumptions are kept separate from investment concepts and simulated data. No real fund names, historical returns, recommendations, authentication, server state or transactions are implemented. The initial 30/40/30 allocation is a demo-state fixture, not an allocation recommendation. The future-value helper uses month-end contributions and an illustrative nominal annual rate divided by 12; it is not exposed as a full planner yet.
-
-Fonts are bundled locally via Fontsource. No external font request is needed at runtime. Sage uses dark foreground text; warning text uses a darker accessible tone while preserving the requested terracotta accent token. Motion is subtle and respects reduced-motion preferences. Navigation uses an accessible Radix Sheet on small screens.
-
-## Validation and remaining work
-
-Automated checks cover route rendering, primary navigation, mobile navigation keyboard dismissal, profile consistency, persistence, migration, corrupted/blocked storage, allocation invariants, keyboard slider input and financial helper edge cases. TypeScript strict checking and Vite production build are required before publication.
-
-Full browser visual QA remains unverified because this environment's browser security check is unavailable. The UI must still be visually reviewed on target devices before the final hackathon demo.
-
-The full onboarding wizard, option comparisons, matching engine, allocation planner, projections, crash replay, real holdings display and generated blueprint are intentionally **not implemented** in this foundation phase.
-
-See [the complete file inventory](docs/FILES.md).
-
-## Implementation references
-
-The setup follows the official [shadcn Vite instructions](https://ui.shadcn.com/docs/installation/vite) and [Tailwind Vite integration](https://tailwindcss.com/docs/installation/using-vite). Components are local source files, ready to evolve with MONO.
+Morrow is built for financial education. Fund data, returns and scenarios are **illustrative or simulated**, and they don't predict real market performance. Nothing in this app is investment advice. Talk to a registered financial adviser before making investment decisions.
